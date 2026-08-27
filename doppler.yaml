@@ -1,0 +1,6 @@
+# Pins this agent to a Doppler project/config (names only — no secret values).
+# Rename `project` to your agent's Doppler project, then:
+#   doppler setup --no-interactive && doppler run -- python -m agent.main
+setup:
+  project: my-agent
+  config: dev

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: my-agent                          # ← the k8s resource name; rename with your agent
+description: Helm chart for the agent (frozen frame).
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
