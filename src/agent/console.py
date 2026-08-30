@@ -18,7 +18,7 @@ store), not through the model. No build step, no CDN.
 CONSOLE_HTML = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NetCore CI/CD Orchestrator</title>
+<title>CI/CD Orchestrator</title>
 <style>
   :root { color-scheme: light dark; --bd:#8883; --accent:#3b82f6; --accent2:#16a34a;
           --muted:#8a94a6; --card:#8881; }
@@ -69,8 +69,8 @@ CONSOLE_HTML = """<!doctype html>
   .links a { color: var(--accent); }
 </style></head>
 <body>
-  <h1>.NET Core CI/CD Orchestrator</h1>
-  <div class="sub">Provide a Git repository URL, pick your tools, then choose which agent to run.</div>
+  <h1>CI/CD Orchestrator</h1>
+  <div class="sub">Provide a Git repository URL and your tools. The orchestrator classifies the repo (.NET Core vs .NET FX 4.8) and routes it to the matching CI agent — you don't pick the agent.</div>
 
   <div class="grid">
     <div><label class="fld" for="repo">Git repository URL</label>
@@ -83,7 +83,7 @@ CONSOLE_HTML = """<!doctype html>
       <input id="prBranch" type="text" placeholder="ci/netcore-<repo> — leave blank for default"></div>
   </div>
 
-  <div class="caphint">Run CI sends your inputs straight to the NetcoreCIAgent (no LLM) and returns a real pull request. Config &amp; credentials are collapsed by default — expand a section, pick a tool, and its fields appear.</div>
+  <div class="caphint">Run CI classifies the repo and routes your inputs to the matching CI agent (no LLM), returning a real pull request. Config &amp; credentials are collapsed by default — expand a section, pick a tool, and its fields appear. Tools you leave unset are emitted commented-out in the generated workflow.</div>
 
   <details class="sec">
     <summary><span class="chev">&#9654;</span> CI — tools &amp; credentials <span class="tag">pick a tool per capability</span></summary>
@@ -142,7 +142,7 @@ CONSOLE_HTML = """<!doctype html>
 
   <pre id="out">Response will appear here.</pre>
   <div class="links">
-    Run CI → POST <code>/ci</code> (forwarded to the NetcoreCIAgent) &nbsp;·&nbsp;
+    Run CI → POST <code>/ci</code> (classified &amp; routed to the matching CI agent) &nbsp;·&nbsp;
     <a href="/docs">/docs</a> &nbsp;·&nbsp; <a href="/healthz">/healthz</a>
   </div>
 
@@ -176,6 +176,7 @@ CONSOLE_HTML = """<!doctype html>
         'Aqua':   [F('url','Server URL','text'), F('token','Token','password')],
       }},
       { key:'artifact', label:'Artifact repository', tools:{
+        'Azure Blob Storage':[F('creds','Credentials JSON','password'), F('key','Storage account key','password'), F('acct','Storage account name','text'), F('cont','Container name','text')],
         'Nexus':             [F('url','Repository URL','text','https://nexus.example.com/repository/…'), F('user','Username','text'), F('pass','Password','password')],
         'JFrog Artifactory': [F('url','Base URL','text'), F('token','Access token','password')],
         'GitHub Packages':   [F('owner','Owner / org','text'), F('pat','Personal access token','password')],
