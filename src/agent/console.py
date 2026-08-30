@@ -77,6 +77,8 @@ CONSOLE_HTML = """<!doctype html>
       <input id="repo" type="text" placeholder="https://github.com/your-org/your-repo.git"></div>
     <div><label class="fld" for="ghToken">GitHub token (opens the PR)</label>
       <input id="ghToken" type="password" placeholder="ghp_… — classic PAT with repo + workflow"></div>
+    <div class="full"><label class="fld" for="runner">CI runner (runs-on)</label>
+      <input id="runner" type="text" placeholder="ubuntu-latest — or windows-latest, or a self-hosted runner label"></div>
   </div>
 
   <div class="caphint">Run CI sends your inputs straight to the NetcoreCIAgent (no LLM) and returns a real pull request. Config &amp; credentials are collapsed by default — expand a section, pick a tool, and its fields appear.</div>
@@ -274,6 +276,7 @@ CONSOLE_HTML = """<!doctype html>
         include_dast: $('optDast').checked, include_playwright: $('optPw').checked,
         cd_handoff: document.querySelector('input[name=handoff]:checked').value,
         auto_deploy: $('optAuto').checked,
+        runner_os: $('runner').value.trim(),
       };
     }
 
